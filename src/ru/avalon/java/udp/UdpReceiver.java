@@ -18,13 +18,15 @@ public final class UdpReceiver {
         // 2. Формируем пакет, на основе созданного буфера.
         final DatagramPacket packet = preparePacket(buffer);
         // 3. Выбираем порт, на который ожидается получение сообщения.
-        final int port = 0;
+        final int port = 18000;
         // 4. Формируем сокет, связанный с выбранным портом.
         final DatagramSocket socket = prepareSocket(port);
         // 5. Получаем сообщение.
         socket.receive(packet);
         // 6. На основании данных пакета формируем текстовое сообщение.
         final String message = getMessage(packet);
+        System.out.print(message);
+        
         // 7. Освобождаем ресурсы.
         socket.close();
     }
@@ -38,7 +40,7 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод prepareBuffer класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return new byte[1024];
     }
 
     /**
@@ -54,7 +56,16 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод preparePacket класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        DatagramPacket packet = null;
+        try
+        {
+          packet = new DatagramPacket(buffer, buffer.length);
+        }
+        catch (Exception e)
+        {
+            
+        }
+        return packet;
     }
 
     /**
@@ -68,7 +79,17 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод prepareSocket класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        DatagramSocket socket = null;
+        try
+        {
+           socket = new DatagramSocket(port);
+            
+        }
+        catch (Exception e)
+        {
+            
+        }
+        return socket;
     }
 
     /**
@@ -83,7 +104,18 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод getMessage класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        byte[] buffer = packet.getData();
+        String message = null;
+        try
+        {
+            message = new String(buffer, "UTF-8");
+        }
+        catch (Exception e)
+        {
+            
+        }
+        
+        return message;
     }
 
 }

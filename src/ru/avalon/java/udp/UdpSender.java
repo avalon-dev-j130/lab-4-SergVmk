@@ -3,6 +3,8 @@ package ru.avalon.java.udp;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
 /**
@@ -39,7 +41,7 @@ public final class UdpSender {
         /*
          * TODO Реализовать метод prepareMessage класса UdpSender
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return "My UDP Message";
     }
 
     /**
@@ -51,7 +53,16 @@ public final class UdpSender {
         /*
          * TODO Реализовать метод prepareAddress класса UdpSender
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        SocketAddress address = null;
+        try
+        {
+          address = InetSocketAddress(InetAddress.getLocalHost(), 18000);
+        }
+        catch (Exception e)
+        {
+                    
+        }
+        return address;
     }
 
     /**
@@ -64,7 +75,8 @@ public final class UdpSender {
         /*
          * TODO Реализовать метод createSocket класса UdpSender
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        DatagramSocket socket = new DatagramSocket();
+        return socket; 
     }
 
     /**
@@ -78,7 +90,29 @@ public final class UdpSender {
         /*
          * TODO Реализовать метод pack класса UdpSender
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        DatagramPacket packet = null;
+        try
+        {
+            byte[] datagram = message.getBytes("UTF-8");
+            packet = new DatagramPacket(datagram, datagram.length);
+        }
+        catch (Exception e)
+        {
+        }
+        return packet;
+    }
+
+    private static SocketAddress InetSocketAddress(InetAddress localHost, int i) {
+        SocketAddress address = null;
+        try
+        {
+          address = new InetSocketAddress(localHost, i);
+        }
+        catch (Exception e)
+        {
+            
+        }
+        return address;
     }
 
 }
